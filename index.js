@@ -12,6 +12,7 @@
 //what is asynchronous operation -> an asynchronous operation is one that does not block the execution of other operations while it is being performed.
 //what is async function -> an async function is a function that is declared with the async keyword. It always returns a promise.
 // what is await -> await is used to wait for a promise to be resolved or rejected. It can only be used inside an async function.
+//so .then will wait for the promise like await then when the promise is resolved it will give the resonse if it's not it will rejected
 
 //example of arrow function
 const arrowfunc=(name)=>{
@@ -40,16 +41,22 @@ async function asyncFunction(){
 asyncFunction();
 arrowfunc("hey there");
 
-async function fetchAPI(){
+async function fetchAPI(postid){
 try{
-    let response=await fetch('https://jsonplaceholder.typicode.com/posts/1');
-    console.log(await response.json());
+    let response=await fetch(`https://jsonplaceholder.typicode.com/posts/${postid}`);
+    let data=await response.json();
+    console.log(data);
+    
 }
 catch(error){
     console.log(error);
 }
 }
-fetchAPI();
+
+fetch('https://jsonplaceholder.typicode.com/posts/1')
+.then(respone=>respone.json())
+.then(data=>console.log(data))
+.catch(error=>console.log(error));
 
 
 
